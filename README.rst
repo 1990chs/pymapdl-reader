@@ -1,12 +1,34 @@
 ======================================================
 PyMAPDL Reader - Legacy Binary and Archive File Reader
 ======================================================
-.. image:: https://badge.fury.io/py/ansys-mapdl-reader.svg
-    :target: https://badge.fury.io/py/ansys-mapdl-reader
+|pyansys| |pypi| |PyPIact| |GH-CI| |codecov| |MIT| |black| |pre-commit|
 
-.. image:: https://dev.azure.com/pyansys/pyansys/_apis/build/status/pyansys.pymapdl-reader?branchName=master
-    :target: https://dev.azure.com/pyansys/pyansys/_build/latest?definitionId=4&branchName=master
+.. |pyansys| image:: https://img.shields.io/badge/Py-Ansys-ffc107.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABDklEQVQ4jWNgoDfg5mD8vE7q/3bpVyskbW0sMRUwofHD7Dh5OBkZGBgW7/3W2tZpa2tLQEOyOzeEsfumlK2tbVpaGj4N6jIs1lpsDAwMJ278sveMY2BgCA0NFRISwqkhyQ1q/Nyd3zg4OBgYGNjZ2ePi4rB5loGBhZnhxTLJ/9ulv26Q4uVk1NXV/f///////69du4Zdg78lx//t0v+3S88rFISInD59GqIH2esIJ8G9O2/XVwhjzpw5EAam1xkkBJn/bJX+v1365hxxuCAfH9+3b9/+////48cPuNehNsS7cDEzMTAwMMzb+Q2u4dOnT2vWrMHu9ZtzxP9vl/69RVpCkBlZ3N7enoDXBwEAAA+YYitOilMVAAAAAElFTkSuQmCC
+   :target: https://docs.pyansys.com/
+   :alt: PyAnsys
 
+.. |pypi| image:: https://img.shields.io/pypi/v/ansys-mapdl-reader.svg?logo=python&logoColor=white
+   :target: https://pypi.org/project/ansys-mapdl-reader/
+
+.. |PyPIact| image:: https://img.shields.io/pypi/dm/ansys-mapdl-reader.svg?label=PyPI%20downloads
+   :target: https://pypi.org/project/ansys-mapdl-reader/
+
+.. |codecov| image:: https://codecov.io/gh/pyansys/pymapdl-reader/branch/main/graph/badge.svg
+   :target: https://codecov.io/gh/pyansys/pymapdl-reader
+
+.. |GH-CI| image:: https://github.com/pyansys/pymapdl-reader/actions/workflows/testing-and-deployment.yml/badge.svg
+   :target: https://github.com/pyansys/pymapdl-reader/actions/workflows/testing-and-deployment.yml
+
+.. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
+   :target: https://opensource.org/licenses/MIT
+
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat
+  :target: https://github.com/psf/black
+  :alt: black
+
+.. |pre-commit| image:: https://results.pre-commit.ci/badge/github/pyansys/pymapdl-reader/main.svg
+   :target: https://results.pre-commit.ci/latest/github/pyansys/pymapdl-reader/main
+   :alt: pre-commit.ci status
 
 This is the legacy module for reading in binary and ASCII files
 generated from MAPDL.
@@ -18,25 +40,25 @@ provided by ANSYS.
 
 The ``ansys-mapdl-reader`` module supports the following formats:
 
-  - ``*.rst`` - Structural analysis result file
-  - ``*.rth`` - Thermal analysis result file 
-  - ``*.emat`` - Element matrix data file
-  - ``*.full`` - Full stiffness-mass matrix file
-  - ``*.cdb`` or ``*.dat`` - MAPDL ASCII block archive and
-    Mechanical Workbench input files
+- ``*.rst`` - Structural analysis result file
+- ``*.rth`` - Thermal analysis result file 
+- ``*.emat`` - Element matrix data file
+- ``*.full`` - Full stiffness-mass matrix file
+- ``*.cdb`` or ``*.dat`` - MAPDL ASCII block archive and
+  Mechanical Workbench input files
 
 Please see the `PyMAPDL-Reader Documentation
 <https://readerdocs.pyansys.com>`_ for the full documentation.
 
 .. note::
 
-   This module will likely change or be depreciated in the future.
+   This module may be depreciated in the future.
 
    You are encouraged to use the new Data Processing Framework (DPF)
-   modules at `DPF-Core <https://github.com/pyansys/DPF-Core>`_ and
-   `DPF-Post <https://github.com/pyansys/DPF-Post>`_ as they provide a
-   modern interface to ANSYS result files using a client/server
-   interface using the same software used within ANSYS Workbench, but
+   modules at `PyDPF-Core <https://github.com/pyansys/pydpf-core>`_ and
+   `PyDPF-Post <https://github.com/pyansys/pydpf-post>`_ as they provide a
+   modern interface to Ansys result files using a client/server
+   interface using the same software used within Ansys Mechanical, but
    via a Python client.
 
 
@@ -44,14 +66,17 @@ Installation
 ------------
 Installation through pip::
 
-    pip install ansys-mapdl-reader
+   pip install ansys-mapdl-reader
 
 You can also visit `pymapdl-reader <https://github.com/pyansys/pymapdl-reader>`_
 to download the source or releases from GitHub.
 
 
-Loading and Plotting an ANSYS Archive File
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Examples
+--------
+
+Loading and Plotting a MAPDL Archive File
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ANSYS archive files containing solid elements (both legacy and
 modern), can be loaded using Archive and then converted to a vtk
 object.
@@ -65,7 +90,7 @@ object.
     filename = examples.hexarchivefile
     
     # Read ansys archive file
-    archive = pyansys.Archive(filename)
+    archive = pymapdl_reader.Archive(filename)
     
     # Print raw data from cdb
     for key in archive.raw:
@@ -82,7 +107,7 @@ object.
     grid.save('hex.vtk')
 
 
-.. figure:: https://github.com/pyansys/pymapdl-reader/raw/master/docs/source/images/hexbeam_small.png
+.. figure:: https://github.com/pyansys/pymapdl-reader/blob/main/doc/source/images/hexbeam_small.png
    :alt: Hexahedral beam
 
 You can then load this vtk file using ``pyvista`` or another program that uses VTK.
@@ -110,7 +135,7 @@ from ANSYS.
     rstfile = examples.rstfile
     
     # Create result object by loading the result file
-    result = pyansys.read_binary(rstfile)
+    result = pymapdl_reader.read_binary(rstfile)
     
     # Beam natural frequencies
     freqs = result.time_values
@@ -149,7 +174,7 @@ plotted using ``VTK``.
     # Plot the displacement of Mode 0 in the x direction
     result.plot_nodal_solution(0, 'x', label='Displacement')
 
-.. figure:: https://github.com/pyansys/pymapdl-reader/raw/master/docs/source/images/hexbeam_disp_small.png
+.. figure:: https://github.com/pyansys/pymapdl-reader/blob/main/doc/source/images/hexbeam_disp_small.png
 
 
 Results can be plotted non-interactively and screenshots saved by
@@ -185,7 +210,7 @@ displayed.
     # Display node averaged stress in x direction for result 6
     result.plot_nodal_stress(5, 'Sx')
 
-.. figure:: https://github.com/pyansys/pymapdl-reader/raw/master/docs/source/images/beam_stress_small.png
+.. figure:: https://github.com/pyansys/pymapdl-reader/blob/main/doc/source/images/beam_stress_small.png
 
 
 Nodal stress can also be generated non-interactively with:
@@ -204,6 +229,10 @@ Mode shapes from a modal analysis can be animated using ``animate_nodal_solution
 
     result.animate_nodal_solution(0)
 
+
+.. figure:: https://github.com/pyansys/pymapdl-reader/blob/main/doc/source/images/beam_mode_shape_small.gif
+   :alt: Modal shape animation
+
 If you wish to save the animation to a file, specify the
 movie_filename and animate it with:
 
@@ -212,11 +241,8 @@ movie_filename and animate it with:
     result.animate_nodal_solution(0, movie_filename='/tmp/movie.mp4', cpos=cpos)
 
 
-.. figure:: https://github.com/pyansys/pymapdl-reader/raw/master/docs/source/images/beam_mode_shape_small.gif
-
-
 Reading a Full File
--------------------
+~~~~~~~~~~~~~~~~~~~
 This example reads in the mass and stiffness matrices associated with
 the above example.
 
@@ -227,7 +253,7 @@ the above example.
     from scipy import sparse
     
     # load the full file
-    fobj = pyansys.FullReader('file.full')
+    fobj = pymapdl_reader.FullReader('file.full')
     dofref, k, m = fobj.load_km()  # returns upper triangle only
 
     # make k, m full, symmetric matrices
@@ -263,6 +289,19 @@ natural frequencies and mode shapes.
     5781.975 Hz
     6919.399 Hz
 
+Developing on Windows
+---------------------
+
+This package is designed to be developed on Linux, and if you need to develop on Windows
+you will need to install your own C++ compiler. We recommend:
+
+1. Install Visual C++
+       a. See `here <https://wiki.python.org/moin/WindowsCompilers>`_ for a list of which Python versions correspond to which Visual C++ version
+2. Install the development version of pymapdl-reader to your Python environment
+       a. Navigate to the project's top level (the same directory as this README)
+       b. run ``pip install -e .``
+
+
 License and Acknowledgments
 ---------------------------
-The ``ansys-mapdl-reader`` module is licensed under the MIT license.
+The ``ansys-mapdl-reader`` library is licensed under the MIT license.

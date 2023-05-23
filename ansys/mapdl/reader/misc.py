@@ -1,14 +1,13 @@
 """Module for miscellaneous functions and methods"""
-import tempfile
 import os
 import random
 import string
+import tempfile
 
+import numpy as np
+import pyvista
 from pyvista.utilities.errors import GPUInfo
 import scooby
-import pyvista
-import numpy as np
-from pyvista._vtk import VTK9
 
 
 def vtk_cell_info(grid, force_int64=True, shift_offset=True):
@@ -16,15 +15,15 @@ def vtk_cell_info(grid, force_int64=True, shift_offset=True):
 
     Parameters
     ----------
-    force_int64 : bool, optional
-        Force output arrays to be uint64
+    force_int64 : bool, default: True
+        Force output arrays to be uint64.
 
-    shift_offset : bool, optional
-        Shift the offset by -1 when VTK9
+    shift_offset : bool, default: True
+        Shift the offset by -1.
 
     Notes
     -----
-    VTKv9 changed the connectivity and offset arrays:
+    VTK v9 and greater changed the connectivity and offset arrays:
 
     Topology:
     ---------
@@ -44,14 +43,11 @@ def vtk_cell_info(grid, force_int64=True, shift_offset=True):
     Connectivity: {3, 0, 1, 2, 3, 5, 7, 2, 4, 3, 4, 6, 7, 2, 5, 8}
 
     """
-    if VTK9:
-        cells = grid.cell_connectivity
-        if shift_offset:
-            offset = grid.offset - 1
-        else:
-            offset = grid.offset
+    cells = grid.cell_connectivity
+    if shift_offset:
+        offset = grid.offset - 1
     else:
-        cells, offset = grid.cells, grid.offset
+        offset = grid.offset
 
     if force_int64:
         if cells.dtype != np.int64:
@@ -119,15 +115,21 @@ class Report(scooby.Report):
 
     """
 
-    def __init__(self, additional=None, ncol=3, text_width=79, sort=False,
-                 gpu=True):
+    def __init__(self, additional=None, ncol=3, text_width=79, sort=False, gpu=True):
         """Generate a :class:`scooby.Report` instance."""
         # Mandatory packages.
-        core = ['pyvista', 'vtk', 'numpy', 'appdirs',
-                'ansys.mapdl.reader', 'tqdm', 'matplotlib']
+        core = [
+            "pyvista",
+            "vtk",
+            "numpy",
+            "appdirs",
+            "ansys.mapdl.reader",
+            "tqdm",
+            "matplotlib",
+        ]
 
         # Optional packages.
-        optional = ['matplotlib', 'ansys.mapdl.core', 'scipy']
+        optional = ["matplotlib", "ansys.mapdl.core", "scipy"]
 
         # Information about the GPU - bare except in case there is a rendering
         # bug that the user is trying to report.
@@ -139,14 +141,22 @@ class Report(scooby.Report):
         else:
             extra_meta = ("GPU Details", "None")
 
-        scooby.Report.__init__(self, additional=additional, core=core,
-                               optional=optional, ncol=ncol,
-                               text_width=text_width, sort=sort,
-                               extra_meta=extra_meta)
+        scooby.Report.__init__(
+            self,
+            additional=additional,
+            core=core,
+            optional=optional,
+            ncol=ncol,
+            text_width=text_width,
+            sort=sort,
+            extra_meta=extra_meta,
+        )
         self._text_width = text_width
 
     def __repr__(self):
-        add_text = '-'*self.text_width + '\nPyMAPDL-Reader Software and Environment Report'
+        add_text = (
+            "-" * self.text_width + "\nPyMAPDL-Reader Software and Environment Report"
+        )
         return add_text + super().__repr__()
 
 
@@ -160,18 +170,19 @@ def is_float(input_string):
 
 
 def random_string(stringLength=10):
-    """Generate a random string of fixed length """
+    """Generate a random string of fixed length"""
     letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(stringLength))
+    return "".join(random.choice(letters) for i in range(stringLength))
 
 
 def _configure_pyvista():
     """Configure PyVista's ``rcParams`` for pyansys"""
     import pyvista as pv
-    pv.rcParams['interactive'] = True
-    pv.rcParams["cmap"] = "jet"
-    pv.rcParams["font"]["family"] = "courier"
-    pv.rcParams["title"] = "pyansys"
+
+    # pv.global_theme.interactive = True
+    pv.global_theme.cmap = "jet"
+    pv.global_theme.font.family = "courier"
+    pv.global_theme.title = "PyMAPDL-Reader"
 
 
 def break_apart_surface(surf, force_linear=True):
@@ -192,7 +203,7 @@ def break_apart_surface(surf, force_linear=True):
     -------
     bsurf : pyvista.PolyData
         Surface with unique points for each face.  Contains the
-        original indices in point_arrays "orig_ind".
+        original indices in point_data "orig_ind".
 
     """
     faces = surf.faces
@@ -200,23 +211,23 @@ def break_apart_surface(surf, force_linear=True):
         faces = faces.astype(np.int64)
 
     from ansys.mapdl.reader import _binary_reader
-    b_points, b_faces, idx = _binary_reader.break_apart_surface(surf.points,
-                                                                faces,
-                                                                surf.n_faces,
-                                                                force_linear)
+
+    b_points, b_faces, idx = _binary_reader.break_apart_surface(
+        surf.points, faces, surf.n_faces, force_linear
+    )
     bsurf = pyvista.PolyData(b_points, b_faces)
-    bsurf.point_arrays['orig_ind'] = idx
+    bsurf.point_data["orig_ind"] = idx
     return bsurf
 
 
 def chunks(l, n):
-    """ Yield successive n-sized chunks from l """
+    """Yield successive n-sized chunks from l"""
     for i in range(0, len(l), n):
-        yield l[i:i + n]
+        yield l[i : i + n]
 
 
 def unique_rows(a):
-    """ Returns unique rows of a and indices of those rows """
+    """Returns unique rows of a and indices of those rows"""
     if not a.flags.c_contiguous:
         a = np.ascontiguousarray(a)
 
@@ -241,15 +252,18 @@ def create_temp_dir(tmpdir=None):
     try:
         os.mkdir(path)
     except:
-        raise RuntimeError('Unable to create temporary working '
-                           'directory %s\n' % path +
-                           'Please specify run_location=')
+        raise RuntimeError(
+            "Unable to create temporary working "
+            "directory %s\n" % path + "Please specify run_location="
+        )
 
     return path
 
 
 def no_return(fn):
     """Decorator to return nothing from the wrapped function"""
+
     def wrapper(*args, **kwargs):
         fn(*args, **kwargs)
+
     return wrapper

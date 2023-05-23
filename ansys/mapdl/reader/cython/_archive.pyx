@@ -6,10 +6,11 @@
 # cython: nonecheck=False
 # cython: embedsignature=True
 
-from libc.stdio cimport fopen, fwrite, fclose, FILE, fdopen
 from libc.math cimport abs
+from libc.stdio cimport FILE, fclose, fdopen, fopen, fwrite
 
 import numpy as np
+
 cimport numpy as np
 
 ctypedef unsigned char uint8_t
@@ -23,7 +24,7 @@ cdef extern from 'archive.h' nogil:
                            const float*, int)
     int write_eblock(FILE*, const int, const int*, const int*, const int*,
                      const int*, const int*, const uint8_t*, const int64_t*,
-                     const int64_t*, const int*, const int*, const int);
+                     const int64_t*, const int*, const int*);
 
 
 cdef extern from "stdio.h":
@@ -59,6 +60,8 @@ def py_write_nblock(filename, const int [::1] node_id, int max_node_id,
     cdef int has_angles = 0
     if angles.size == pos.size:
         has_angles = 1
+    else:
+        angles = np.zeros((1, 1), np.double)
     write_nblock(cfile, n_nodes, max_node_id, &node_id[0], &pos[0, 0],
                  &angles[0, 0], has_angles);
     fclose(cfile)
@@ -90,23 +93,24 @@ def py_write_nblock_float(filename, const int [::1] node_id, int max_node_id,
     cdef int has_angles = 0
     if angles.size == pos.size:
         has_angles = 1
+    else:
+        angles = np.zeros((1, 1), np.float32)
     write_nblock_float(cfile, n_nodes, max_node_id, &node_id[0], &pos[0, 0],
                        &angles[0, 0], has_angles);
     fclose(cfile)
 
 
 def py_write_eblock(filename,
-                    int [::1] elem_id,
-                    int [::1] etype,
-                    int [::1] mtype,
-                    int [::1] rcon,
-                    int [::1] elem_nnodes,
-                    int64_t [::1] cells,
-                    int64_t [::1] offset,
-                    uint8_t [::1] celltypes,
-                    int [::1] typenum,
-                    int [::1] nodenum,
-                    vtk9,
+                    const int [::1] elem_id,
+                    const int [::1] etype,
+                    const int [::1] mtype,
+                    const int [::1] rcon,
+                    const int [::1] elem_nnodes,
+                    const int64_t [::1] cells,
+                    const int64_t [::1] offset,
+                    const uint8_t [::1] celltypes,
+                    const int [::1] typenum,
+                    const int [::1] nodenum,
                     mode='w'):
     cdef FILE* cfile = fopen(filename.encode(), mode.encode())
     write_eblock(cfile,
@@ -120,18 +124,18 @@ def py_write_eblock(filename,
                  &offset[0],
                  &cells[0],
                  &typenum[0],
-                 &nodenum[0],
-                 int(vtk9))
+                 &nodenum[0])
     fclose(cfile)
 
 
 def cmblock_items_from_array(int [::1] array):
-    """Given a list of items, convert to a ANSYS formatted CMBLOCK.  For example
-    1, 2, 3, 4, 8
+    """Given a list of items, convert to a ANSYS formatted CMBLOCK.
+
+    For example ``1, 2, 3, 4, 8``
 
     will be converted to
 
-    1, -4, 8
+    ``1, -4, 8``
 
     Where the -4 indicates all the items between 1 and -4.
     """
