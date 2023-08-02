@@ -1,0 +1,236 @@
+:orphan:
+
+
+
+.. _sphx_glr_examples:
+
+.. _ref_example_gallery:
+
+Examples Gallery
+================
+Here are a series of examples that demonstrate the behavior and usage
+of ``ansys-mapdl-reader``.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_examples_00-read_binary:
+
+Loading and Visualizing Result Files
+------------------------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Custom Scalar Visualization">
+
+.. only:: html
+
+ .. figure:: /examples/00-read_binary/images/thumb/sphx_glr_custom_visualization_thumb.png
+     :alt: Custom Scalar Visualization
+
+     :ref:`sphx_glr_examples_00-read_binary_custom_visualization.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/00-read_binary/custom_visualization
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Cylindrical Nodal Stress">
+
+.. only:: html
+
+ .. figure:: /examples/00-read_binary/images/thumb/sphx_glr_load_corner_result_thumb.png
+     :alt: Cylindrical Nodal Stress
+
+     :ref:`sphx_glr_examples_00-read_binary_load_corner_result.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/00-read_binary/load_corner_result
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Visualize a shaft modal analysis">
+
+.. only:: html
+
+ .. figure:: /examples/00-read_binary/images/thumb/sphx_glr_load_shaft_result_thumb.png
+     :alt: Shaft Modal Analysis
+
+     :ref:`sphx_glr_examples_00-read_binary_load_shaft_result.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/00-read_binary/load_shaft_result
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Visualize the result of verification manual test 33.">
+
+.. only:: html
+
+ .. figure:: /examples/00-read_binary/images/thumb/sphx_glr_load_thermal_result_thumb.png
+     :alt: Thermal Analysis
+
+     :ref:`sphx_glr_examples_00-read_binary_load_thermal_result.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/00-read_binary/load_thermal_result
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Visualize a shell static analysis">
+
+.. only:: html
+
+ .. figure:: /examples/00-read_binary/images/thumb/sphx_glr_pontoon_thumb.png
+     :alt: Shell Static Analysis
+
+     :ref:`sphx_glr_examples_00-read_binary_pontoon.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/00-read_binary/pontoon
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_examples_01-cyclic_results:
+
+Cyclic Result Analysis
+----------------------
+The following examples demonstrate how to load results from and
+directly analyze MAPDL result files from a cyclic analysis.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to interpret modes from a cyclic analysis from MAPDL result file from bo...">
+
+.. only:: html
+
+ .. figure:: /examples/01-cyclic_results/images/thumb/sphx_glr_academic_sector_nd_thumb.png
+     :alt: Understanding Nodal Diameters from a Cyclic Model Analysis
+
+     :ref:`sphx_glr_examples_01-cyclic_results_academic_sector_nd.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/01-cyclic_results/academic_sector_nd
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to extract strain and stress from a cyclic modal analysis.">
+
+.. only:: html
+
+ .. figure:: /examples/01-cyclic_results/images/thumb/sphx_glr_academic_sector_stress_strain_thumb.png
+     :alt: Stress and Strain from a Cyclic Modal Analysis
+
+     :ref:`sphx_glr_examples_01-cyclic_results_academic_sector_stress_strain.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/01-cyclic_results/academic_sector_stress_strain
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="First, load the rotor.  Notice how printing the rotor class reveals the details of the rotor re...">
+
+.. only:: html
+
+ .. figure:: /examples/01-cyclic_results/images/thumb/sphx_glr_sector_model_thumb.png
+     :alt: Cyclic Model Visualization
+
+     :ref:`sphx_glr_examples_01-cyclic_results_sector_model.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/01-cyclic_results/sector_model
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-gallery
+
+
+  .. container:: sphx-glr-download sphx-glr-download-python
+
+    :download:`Download all examples in Python source code: examples_python.zip </examples/examples_python.zip>`
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+    :download:`Download all examples in Jupyter notebooks: examples_jupyter.zip </examples/examples_jupyter.zip>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

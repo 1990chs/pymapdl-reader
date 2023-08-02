@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examples Gallery &#8212; PyMAPDL Legacy Reader 0.51.3 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Custom Scalar Visualization" href="00-read_binary/custom_visualization.html" />
+    <link rel="prev" title="Miscellaneous Classes" href="../api/misc.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><style>
+    .navbar-light {
+        background-color: black !important;
+    }
+</style>
+
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../index.html">
+    
+      <img src="../_static/pyansys-logo-black-cropped.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" >
+        <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
+      </span>
+    </button>
+    
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../getting_started.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../user_guide/index.html">User Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../api/index.html">API Reference</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Examples Gallery</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../contributing.html">Contributing</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/pyansys/PyMAPDL" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square" style="font-size:24px"></i></span>
+            </a>
+          </li>
+        
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00-read_binary/custom_visualization.html">
+   Custom Scalar Visualization
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00-read_binary/load_corner_result.html">
+   Cylindrical Nodal Stress
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00-read_binary/load_shaft_result.html">
+   Shaft Modal Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00-read_binary/load_thermal_result.html">
+   Thermal Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00-read_binary/pontoon.html">
+   Shell Static Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-cyclic_results/academic_sector_nd.html">
+   Understanding Nodal Diameters from a Cyclic Model Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-cyclic_results/academic_sector_stress_strain.html">
+   Stress and Strain from a Cyclic Modal Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-cyclic_results/sector_model.html">
+   Cyclic Model Visualization
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-and-visualizing-result-files">
+   Loading and Visualizing Result Files
+  </a>
+  <ul class="nav section-nav flex-column">
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cyclic-result-analysis">
+   Cyclic Result Analysis
+  </a>
+  <ul class="nav section-nav flex-column">
+  </ul>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="examples-gallery">
+<span id="ref-example-gallery"></span><span id="sphx-glr-examples"></span><h1>Examples Gallery<a class="headerlink" href="#examples-gallery" title="Permalink to this headline">¶</a></h1>
+<p>Here are a series of examples that demonstrate the behavior and usage
+of <code class="docutils literal notranslate"><span class="pre">ansys-mapdl-reader</span></code>.</p>
+<div class="sphx-glr-clear"></div><div class="section" id="loading-and-visualizing-result-files">
+<span id="sphx-glr-examples-00-read-binary"></span><h2>Loading and Visualizing Result Files<a class="headerlink" href="#loading-and-visualizing-result-files" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="Custom Scalar Visualization"><div class="figure align-default" id="id1">
+<img alt="Custom Scalar Visualization" src="../_images/sphx_glr_custom_visualization_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="00-read_binary/custom_visualization.html#sphx-glr-examples-00-read-binary-custom-visualization-py"><span class="std std-ref">Custom Scalar Visualization</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Cylindrical Nodal Stress"><div class="figure align-default" id="id2">
+<img alt="Cylindrical Nodal Stress" src="../_images/sphx_glr_load_corner_result_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="00-read_binary/load_corner_result.html#sphx-glr-examples-00-read-binary-load-corner-result-py"><span class="std std-ref">Cylindrical Nodal Stress</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Visualize a shaft modal analysis"><div class="figure align-default" id="id3">
+<img alt="Shaft Modal Analysis" src="../_images/sphx_glr_load_shaft_result_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="00-read_binary/load_shaft_result.html#sphx-glr-examples-00-read-binary-load-shaft-result-py"><span class="std std-ref">Shaft Modal Analysis</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Visualize the result of verification manual test 33."><div class="figure align-default" id="id4">
+<img alt="Thermal Analysis" src="../_images/sphx_glr_load_thermal_result_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="00-read_binary/load_thermal_result.html#sphx-glr-examples-00-read-binary-load-thermal-result-py"><span class="std std-ref">Thermal Analysis</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Visualize a shell static analysis"><div class="figure align-default" id="id5">
+<img alt="Shell Static Analysis" src="../_images/sphx_glr_pontoon_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="00-read_binary/pontoon.html#sphx-glr-examples-00-read-binary-pontoon-py"><span class="std std-ref">Shell Static Analysis</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="cyclic-result-analysis">
+<span id="sphx-glr-examples-01-cyclic-results"></span><h2>Cyclic Result Analysis<a class="headerlink" href="#cyclic-result-analysis" title="Permalink to this headline">¶</a></h2>
+<p>The following examples demonstrate how to load results from and
+directly analyze MAPDL result files from a cyclic analysis.</p>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to interpret modes from a cyclic analysis from MAPDL result file from bo..."><div class="figure align-default" id="id6">
+<img alt="Understanding Nodal Diameters from a Cyclic Model Analysis" src="../_images/sphx_glr_academic_sector_nd_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="01-cyclic_results/academic_sector_nd.html#sphx-glr-examples-01-cyclic-results-academic-sector-nd-py"><span class="std std-ref">Understanding Nodal Diameters from a Cyclic Model Analysis</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to extract strain and stress from a cyclic modal analysis."><div class="figure align-default" id="id7">
+<img alt="Stress and Strain from a Cyclic Modal Analysis" src="../_images/sphx_glr_academic_sector_stress_strain_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="01-cyclic_results/academic_sector_stress_strain.html#sphx-glr-examples-01-cyclic-results-academic-sector-stress-strain-py"><span class="std std-ref">Stress and Strain from a Cyclic Modal Analysis</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="First, load the rotor.  Notice how printing the rotor class reveals the details of the rotor re..."><div class="figure align-default" id="id8">
+<img alt="Cyclic Model Visualization" src="../_images/sphx_glr_sector_model_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="01-cyclic_results/sector_model.html#sphx-glr-examples-01-cyclic-results-sector-model-py"><span class="std std-ref">Cyclic Model Visualization</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div><div class="sphx-glr-footer class sphx-glr-footer-gallery docutils container">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/bc82bea3a5dd7bdba60b65220891d9e5/examples_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">examples_python.zip</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/fb625db3c50d423b1b7881136ffdeec8/examples_jupyter.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Jupyter</span> <span class="pre">notebooks:</span> <span class="pre">examples_jupyter.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../api/misc.html" title="previous page">Miscellaneous Classes</a>
+    <a class='right-next' id="next-link" href="00-read_binary/custom_visualization.html" title="next page">Custom Scalar Visualization</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright (c) 2021 ANSYS, Inc. All rights reserved.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

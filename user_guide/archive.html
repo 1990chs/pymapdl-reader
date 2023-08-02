@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reading and Writing Mapdl Archive Files &#8212; PyMAPDL Legacy Reader 0.51.3 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Working with a ANSYS Element Matrix File (.emat)" href="loading_emat.html" />
+    <link rel="prev" title="Reading MAPDL Result Files" href="loading_results.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><style>
+    .navbar-light {
+        background-color: black !important;
+    }
+</style>
+
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../index.html">
+    
+      <img src="../_static/pyansys-logo-black-cropped.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" >
+        <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
+      </span>
+    </button>
+    
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../getting_started.html">Installation</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">User Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../api/index.html">API Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../examples/index.html">Examples Gallery</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../contributing.html">Contributing</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/pyansys/PyMAPDL" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square" style="font-size:24px"></i></span>
+            </a>
+          </li>
+        
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="loading_results.html">
+   Reading MAPDL Result Files
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Reading and Writing Mapdl Archive Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="loading_emat.html">
+   Working with a ANSYS Element Matrix File (.emat)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="loading_km.html">
+   Working with a MAPDL Full File (full)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="quality.html">
+   Compute Cell Quality
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reading-ansys-archives">
+   Reading ANSYS Archives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#writing-ansys-archives">
+   Writing ANSYS Archives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#converting-a-mapdl-archive-file-to-vtk-for-paraview">
+   Converting a MAPDL Archive File to VTK for Paraview
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supported-elements">
+     Supported Elements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#archive-class">
+   Archive Class
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="reading-and-writing-mapdl-archive-files">
+<h1>Reading and Writing Mapdl Archive Files<a class="headerlink" href="#reading-and-writing-mapdl-archive-files" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="reading-ansys-archives">
+<h2>Reading ANSYS Archives<a class="headerlink" href="#reading-ansys-archives" title="Permalink to this headline">¶</a></h2>
+<p>MAPDL archive <code class="docutils literal notranslate"><span class="pre">*.cdb</span></code> and <code class="docutils literal notranslate"><span class="pre">*.dat</span></code> files containing elements (both
+legacy and modern) can be loaded using Archive and then converted to a
+<code class="docutils literal notranslate"><span class="pre">vtk</span></code> object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+
+<span class="c1"># Read a sample archive file</span>
+<span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+
+<span class="c1"># Print various raw data from cdb</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">archive</span><span class="o">.</span><span class="n">nnum</span><span class="p">,</span> <span class="n">archive</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+
+<span class="c1"># access a vtk unstructured grid from the raw data and plot it</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">grid</span>
+<span class="n">archive</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">show_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can also optionally read in any stored parameters within the
+archive file by enabling the <code class="docutils literal notranslate"><span class="pre">read_parameters</span></code> parameter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="s1">&#39;mesh.cdb&#39;</span><span class="p">,</span> <span class="n">read_parameters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># parameters are stored as a dictionary</span>
+<span class="n">archive</span><span class="o">.</span><span class="n">parameters</span>
+</pre></div>
+</div>
+<p>See the <cite>Archive</cite> class documentation below for more details on the
+class methods and properties.</p>
+</div>
+<div class="section" id="writing-ansys-archives">
+<h2>Writing ANSYS Archives<a class="headerlink" href="#writing-ansys-archives" title="Permalink to this headline">¶</a></h2>
+<p>Unstructured grids generated using VTK can be converted to ANSYS APDL
+archive files and loaded into any version of ANSYS using
+<code class="docutils literal notranslate"><span class="pre">pymapdl_reader.save_as_archive</span></code>.  The following example using the
+built-in archive file demonstrates this capability.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">pv</span>
+<span class="kn">from</span> <span class="nn">pyvista</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+
+<span class="c1"># load in a vtk unstructured grid</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">UnstructuredGrid</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexbeamfile</span><span class="p">)</span>
+<span class="n">script_filename</span> <span class="o">=</span> <span class="s1">&#39;/tmp/grid.cdb&#39;</span>
+<span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">save_as_archive</span><span class="p">(</span><span class="n">script_filename</span><span class="p">,</span> <span class="n">grid</span><span class="p">)</span>
+
+<span class="c1"># optionally read in archive in ANSYS and generate cell shape</span>
+<span class="c1"># quality report</span>
+<span class="kn">from</span> <span class="nn">ansys.mapdl.core</span> <span class="kn">import</span> <span class="n">launch_mapdl</span>
+<span class="n">mapdl</span> <span class="o">=</span> <span class="n">launch_mapdl</span><span class="p">()</span>
+<span class="n">mapdl</span><span class="o">.</span><span class="n">cdread</span><span class="p">(</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="n">script_filename</span><span class="p">)</span>
+<span class="n">mapdl</span><span class="o">.</span><span class="n">prep7</span><span class="p">()</span>
+<span class="n">mapdl</span><span class="o">.</span><span class="n">shpp</span><span class="p">(</span><span class="s1">&#39;SUMM&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Resulting ANSYS quality report:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">------------------------------------------------------------------------------</span>
+           <span class="o">&lt;&lt;&lt;&lt;&lt;&lt;</span>          <span class="n">SHAPE</span> <span class="n">TESTING</span> <span class="n">SUMMARY</span>           <span class="o">&gt;&gt;&gt;&gt;&gt;&gt;</span>
+           <span class="o">&lt;&lt;&lt;&lt;&lt;&lt;</span>        <span class="n">FOR</span> <span class="n">ALL</span> <span class="n">SELECTED</span> <span class="n">ELEMENTS</span>         <span class="o">&gt;&gt;&gt;&gt;&gt;&gt;</span>
+<span class="o">------------------------------------------------------------------------------</span>
+                   <span class="o">--------------------------------------</span>
+                   <span class="o">|</span>  <span class="n">Element</span> <span class="n">count</span>        <span class="mi">40</span> <span class="n">SOLID185</span>  <span class="o">|</span>
+                   <span class="o">--------------------------------------</span>
+
+ <span class="n">Test</span>                <span class="n">Number</span> <span class="n">tested</span>  <span class="ne">Warning</span> <span class="n">count</span>  <span class="n">Error</span> <span class="n">count</span>    <span class="n">Warn</span><span class="o">+</span><span class="n">Err</span> <span class="o">%</span>
+ <span class="o">----</span>                <span class="o">-------------</span>  <span class="o">-------------</span>  <span class="o">-----------</span>    <span class="o">----------</span>
+ <span class="n">Aspect</span> <span class="n">Ratio</span>                 <span class="mi">40</span>              <span class="mi">0</span>             <span class="mi">0</span>         <span class="mf">0.00</span> <span class="o">%</span>
+ <span class="n">Parallel</span> <span class="n">Deviation</span>           <span class="mi">40</span>              <span class="mi">0</span>             <span class="mi">0</span>         <span class="mf">0.00</span> <span class="o">%</span>
+ <span class="n">Maximum</span> <span class="n">Angle</span>                <span class="mi">40</span>              <span class="mi">0</span>             <span class="mi">0</span>         <span class="mf">0.00</span> <span class="o">%</span>
+ <span class="n">Jacobian</span> <span class="n">Ratio</span>               <span class="mi">40</span>              <span class="mi">0</span>             <span class="mi">0</span>         <span class="mf">0.00</span> <span class="o">%</span>
+ <span class="n">Warping</span> <span class="n">Factor</span>               <span class="mi">40</span>              <span class="mi">0</span>             <span class="mi">0</span>         <span class="mf">0.00</span> <span class="o">%</span>
+
+ <span class="n">Any</span>                          <span class="mi">40</span>              <span class="mi">0</span>             <span class="mi">0</span>         <span class="mf">0.00</span> <span class="o">%</span>
+<span class="o">------------------------------------------------------------------------------</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="converting-a-mapdl-archive-file-to-vtk-for-paraview">
+<h2>Converting a MAPDL Archive File to VTK for Paraview<a class="headerlink" href="#converting-a-mapdl-archive-file-to-vtk-for-paraview" title="Permalink to this headline">¶</a></h2>
+<p>MAPDL archive files containing solid elements (both legacy and modern)
+can be loaded using Archive and then converted to a VTK object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+
+<span class="c1"># Sample *.cdb</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span>
+
+<span class="c1"># Read ansys archive file</span>
+<span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># Print overview of data read from cdb</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">archive</span><span class="p">)</span>
+
+<span class="c1"># Create a vtk unstructured grid from the raw data and plot it</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">parse_vtk</span><span class="p">(</span><span class="n">force_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">show_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># save this as a vtk xml file</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;hex.vtu&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/hexbeam.png" src="../_images/hexbeam.png" />
+<p>You can then load this vtk file using <code class="docutils literal notranslate"><span class="pre">pyvista</span></code> or another program that uses VTK.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load this from vtk</span>
+<span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">pv</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;hex.vtk&#39;</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="supported-elements">
+<h3>Supported Elements<a class="headerlink" href="#supported-elements" title="Permalink to this headline">¶</a></h3>
+<p>At the moment, only solid elements are supported by the
+<code class="docutils literal notranslate"><span class="pre">save_as_archive</span></code> function, to include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vtk.VTK_TETRA</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vtk.VTK_QUADRATIC_TETRA</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vtk.VTK_PYRAMID</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vtk.VTK_QUADRATIC_PYRAMID</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vtk.VTK_WEDGE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vtk.VTK_QUADRATIC_WEDGE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vtk.VTK_HEXAHEDRON</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vtk.VTK_QUADRATIC_HEXAHEDRON</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>Linear element types will be written as SOLID185, quadratic elements
+will be written as SOLID186, except for quadratic tetrahedrals, which
+will be written as SOLID187.</p>
+</div>
+</div>
+<div class="section" id="archive-class">
+<h2>Archive Class<a class="headerlink" href="#archive-class" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">ansys.mapdl.reader.archive.</span></span><span class="sig-name descname"><span class="pre">Archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_vtk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_linear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowable_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_unallowed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a blocked ANSYS archive file or input file.</p>
+<p>Reads a blocked CDB file and optionally parses it to a vtk grid.
+This can be used to read in files written from MAPDL using the
+<code class="docutils literal notranslate"><span class="pre">CDWRITE</span></code> command or input files (<code class="docutils literal notranslate"><span class="pre">'.dat'</span></code>) files written from
+ANSYS Workbench.</p>
+<p>Write the archive file using <code class="docutils literal notranslate"><span class="pre">CDWRITE,</span> <span class="pre">DB,</span> <span class="pre">archive.cdb</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em>) – Filename of block formatted cdb file</p></li>
+<li><p><strong>read_parameters</strong> (<em>bool</em><em>, </em><em>optional</em>) – Optionally read parameters from the archive file.  Default
+<code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>parse_vtk</strong> (<em>bool</em><em>, </em><em>optional</em>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code>, parse the raw data into to VTK format.</p></li>
+<li><p><strong>force_linear</strong> (<em>bool</em><em>, </em><em>optional</em>) – This parser creates quadratic elements if available.  Set
+this to True to always create linear elements.  Defaults
+to False.</p></li>
+<li><p><strong>allowable_types</strong> (<em>list</em><em>, </em><em>optional</em>) – <p>Allowable element types.  Defaults to all valid element
+types in <code class="docutils literal notranslate"><span class="pre">ansys.mapdl.reader.elements.valid_types</span></code></p>
+<p>See <code class="docutils literal notranslate"><span class="pre">help(ansys.mapdl.reader.elements)</span></code> for available element types.</p>
+</p></li>
+<li><p><strong>null_unallowed</strong> (<em>bool</em><em>, </em><em>optional</em>) – Elements types not matching element types will be stored
+as empty (null) elements.  Useful for debug or tracking
+element numbers.  Default False.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Print out each step when reading the archive file.  Used for
+debug purposes and defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Internally used parameter used to have a custom <code class="docutils literal notranslate"><span class="pre">__repr__</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hex_beam</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">hex_beam</span><span class="p">)</span>
+<span class="go">ANSYS Archive File HexBeam.cdb</span>
+<span class="go">  Number of Nodes:              40</span>
+<span class="go">  Number of Elements:           321</span>
+<span class="go">  Number of Element Types:      1</span>
+<span class="go">  Number of Node Components:    2</span>
+<span class="go">  Number of Element Components: 2</span>
+</pre></div>
+</div>
+<p>Print the node array</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hex_beam</span><span class="o">.</span><span class="n">nodes</span>
+<span class="go">array([[0.  , 0.  , 0.  ],</span>
+<span class="go">       [1.  , 0.  , 0.  ],</span>
+<span class="go">       [0.25, 0.  , 0.  ],</span>
+<span class="go">       ...,</span>
+<span class="go">       [0.75, 0.5 , 3.5 ],</span>
+<span class="go">       [0.75, 0.5 , 4.  ],</span>
+<span class="go">       [0.75, 0.5 , 4.5 ]])</span>
+</pre></div>
+</div>
+<p>Read an ANSYS workbench input file</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="s1">&#39;C:\Users\user\stuff.dat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>This class only reads EBLOCK records with SOLID records.  For
+example, the record <code class="docutils literal notranslate"><span class="pre">EBLOCK,19,SOLID,,3588</span></code> will be read, but
+<code class="docutils literal notranslate"><span class="pre">EBLOCK,10,,,3588</span></code> will not be read.  Generally, MAPDL will only
+write SOLID records and Mechanical Workbench may write SOLID
+records.  These additional records will be ignored.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.ekey">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">ekey</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.ekey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Element type key</p>
+<p>Array containing element type numbers in the first column and
+the element types (like SURF154) in the second column.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">ekey</span>
+<span class="go">array([[  1,  45],</span>
+<span class="go">       [  2,  95],</span>
+<span class="go">       [  3,  92],</span>
+<span class="go">       [ 60, 154]], dtype=int32)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.elem">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">elem</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.elem" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of elements containing raw ansys information.</p>
+<p>Each element contains 10 items plus the nodes belonging to the
+element.  The first 10 items are:</p>
+<ul class="simple">
+<li><p>FIELD 0 : material reference number</p></li>
+<li><p>FIELD 1 : element type number</p></li>
+<li><p>FIELD 2 : real constant reference number</p></li>
+<li><p>FIELD 3 : section number</p></li>
+<li><p>FIELD 4 : element coordinate system</p></li>
+<li><p>FIELD 5 : death flag (0 - alive, 1 - dead)</p></li>
+<li><p>FIELD 6 : solid model reference</p></li>
+<li><p>FIELD 7 : coded shape key</p></li>
+<li><p>FIELD 8 : element number</p></li>
+<li><p>FIELD 9 : base element number (applicable to reinforcing elements only)</p></li>
+<li><p>FIELDS 10 - 30 : The nodes belonging to the element in ANSYS numbering.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">elem</span>
+<span class="go">[array([  1,   4,  19,  15,  63,  91, 286, 240,   3,  18,  17,</span>
+<span class="go">         16,  81, 276, 267, 258,  62,  90, 285, 239],</span>
+<span class="go"> array([  4,   2,   8,  19,  91,  44, 147, 286,   5,   7,  21,</span>
+<span class="go">         18, 109, 137, 313, 276,  90,  43, 146, 285],</span>
+<span class="go"> array([ 15,  19,  12,  10, 240, 286, 203, 175,  17,  20,  13,</span>
+<span class="go">         14, 267, 304, 221, 230, 239, 285, 202, 174],</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.elem_real_constant">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">elem_real_constant</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.elem_real_constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Real constant reference for each element.</p>
+<p>Use the data within <code class="docutils literal notranslate"><span class="pre">rlblock</span></code> and <code class="docutils literal notranslate"><span class="pre">rlblock_num</span></code> to get the
+real constant datat for each element.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">elem_real_constant</span>
+<span class="go">array([ 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,</span>
+<span class="go">        1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,</span>
+<span class="go">        1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,</span>
+<span class="go">        ...,</span>
+<span class="go">        1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 61, 61, 61, 61,</span>
+<span class="go">       61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61,</span>
+<span class="go">       61], dtype=int32)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.element_components">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">element_components</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.element_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Element components for the archive.</p>
+<p>Output is a dictionary of element components.  Each entry is an
+array of MAPDL element numbers corresponding to the element
+component.  The keys are element component names.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">element_components</span>
+<span class="go">{&#39;ECOMP1 &#39;: array([17, 18, 21, 22, 23, 24, 25, 26, 27, 28, 29,</span>
+<span class="go">                   30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],</span>
+<span class="go">                   dtype=int32),</span>
+<span class="go">&#39;ECOMP2 &#39;: array([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,</span>
+<span class="go">                  14, 15, 16, 17, 18, 19, 20, 23, 24], dtype=int32)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.element_coord_system">
+<span class="sig-name descname"><span class="pre">element_coord_system</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.element_coord_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Element coordinate system number</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">element_coord_system</span>
+<span class="go">array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,</span>
+<span class="go">       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,</span>
+<span class="go">       0, 0], dtype=int32)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.enum">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">enum</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.enum" title="Permalink to this definition">¶</a></dt>
+<dd><p>ANSYS element numbers.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">enum</span>
+<span class="go">array([    1,     2,     3, ...,  9998,  9999, 10000])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.etype">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">etype</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.etype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Element type of each element.</p>
+<p>This is the ansys element type for each element.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">etype</span>
+<span class="go">array([ 45,  45,  45,  45,  45,  45,  45,  45,  45,  45,  45,</span>
+<span class="go">        45,  45,  45,  45,  45,  45,  45,  45,  92,  92,  92,</span>
+<span class="go">        92,  92,  92,  92,  92,  92,  92,  92,  92,  92,  92,</span>
+<span class="go">        ...,</span>
+<span class="go">        92,  92,  92,  92,  92, 154, 154, 154, 154, 154, 154,</span>
+<span class="go">       154, 154, 154, 154, 154, 154, 154, 154, 154, 154, 154,</span>
+<span class="go">       154], dtype=int32)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>Element types are listed below.  Please see the APDL Element
+Reference for more details:</p>
+<p><a class="reference external" href="https://www.mm.bme.hu/~gyebro/files/vem/ansys_14_element_reference.pdf">https://www.mm.bme.hu/~gyebro/files/vem/ansys_14_element_reference.pdf</a></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.grid">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">grid</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.grid" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">vtk.UnstructuredGrid</span></code> of the archive file.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">grid</span>
+<span class="go">UnstructuredGrid (0x7ffa237f08a0)</span>
+<span class="go">  N Cells:      40</span>
+<span class="go">  N Points:     321</span>
+<span class="go">  X Bounds:     0.000e+00, 1.000e+00</span>
+<span class="go">  Y Bounds:     0.000e+00, 1.000e+00</span>
+<span class="go">  Z Bounds:     0.000e+00, 5.000e+00</span>
+<span class="go">  N Arrays:     13</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.key_option">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">key_option</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.key_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Additional key options for element types</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">key_option</span>
+<span class="go">{1: [[1, 11]]}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.material_type">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">material_type</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.material_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Material type index of each element in the archive.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">material_type</span>
+<span class="go">array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,</span>
+<span class="go">       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,</span>
+<span class="go">       1, 1, 1, 1], dtype=int32)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.n_elem">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">n_elem</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.n_elem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of nodes</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.n_node">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">n_node</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.n_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of nodes</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.nnum">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">nnum</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.nnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array of node numbers.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">nnum</span>
+<span class="go">array([    1,     2,     3, ..., 19998, 19999, 20000])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.node_angles">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">node_angles</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.node_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Node angles from the archive file.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">nodes</span>
+<span class="go">[[0.   0.   0.  ]</span>
+<span class="go"> [0.   0.   0.  ]</span>
+<span class="go"> [0.   0.   0.  ]</span>
+<span class="go"> ...,</span>
+<span class="go"> [0.   0.   0.  ]</span>
+<span class="go"> [0.   0.   0.  ]</span>
+<span class="go"> [0.   0.   0.  ]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.node_components">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">node_components</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.node_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Node components for the archive.</p>
+<p>Output is a dictionary of node components.  Each entry is an
+array of MAPDL node numbers corresponding to the node
+component.  The keys are node component names.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">node_components</span>
+<span class="go">{&#39;NCOMP2  &#39;: array([  1,   2,   3,   4,   5,   6,   7,   8,</span>
+<span class="go">                     14, 15, 16, 17, 18, 19, 20, 21, 43, 44,</span>
+<span class="go">                     62, 63, 64, 81, 82, 90, 91, 92, 93, 94,</span>
+<span class="go">                     118, 119, 120, 121, 122, 123, 124, 125,</span>
+<span class="go">                     126, 137, 147, 148, 149, 150, 151, 152,</span>
+<span class="go">                     153, 165, 166, 167, 193, 194, 195, 202,</span>
+<span class="go">                     203, 204, 205, 206, 207, 221, 240, 258,</span>
+<span class="go">                     267, 268, 276, 277, 278, 285, 286, 287,</span>
+<span class="go">                     304, 305, 306, 313, 314, 315, 316</span>
+<span class="go">                     ], dtype=int32),</span>
+<span class="go">...,</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.nodes">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">nodes</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array of nodes.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">nodes</span>
+<span class="go">[[0.   0.   0.  ]</span>
+<span class="go"> [1.   0.   0.  ]</span>
+<span class="go"> [0.25 0.   0.  ]</span>
+<span class="go"> ...,</span>
+<span class="go"> [0.75 0.5  3.5 ]</span>
+<span class="go"> [0.75 0.5  4.  ]</span>
+<span class="go"> [0.75 0.5  4.5 ]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.parameters">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">parameters</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters stored in the archive file</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">,</span>
+<span class="go">                                     read_parameters=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">parameters</span>
+<span class="go">{}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">off_screen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_screen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screenshot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interactive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_img</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eye_dome_lighting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volume</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel_projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_ipyvtk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jupyter_backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_viewer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jupyter_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot a vtk or numpy object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item</strong> (<em>vtk</em><em> or </em><em>numpy object</em>) – VTK object or <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array to be plotted.</p></li>
+<li><p><strong>off_screen</strong> (<em>bool</em>) – Plots off screen when <code class="docutils literal notranslate"><span class="pre">True</span></code>.  Helpful for saving screenshots
+without a window popping up.</p></li>
+<li><p><strong>full_screen</strong> (<em>bool</em><em>, </em><em>optional</em>) – Opens window in full screen.  When enabled, ignores
+<code class="docutils literal notranslate"><span class="pre">window_size</span></code>.  Default <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>screenshot</strong> (<em>str</em><em> or </em><em>bool</em><em>, </em><em>optional</em>) – <p>Saves screenshot to file when enabled.  See:
+<code class="docutils literal notranslate"><span class="pre">help(pyvista.Plotter.screenshot)</span></code>.  Default <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">True</span></code>, takes screenshot and returns <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array of
+image.</p>
+</p></li>
+<li><p><strong>window_size</strong> (<em>list</em><em>, </em><em>optional</em>) – Window size in pixels.  Defaults to <code class="docutils literal notranslate"><span class="pre">[1024,</span> <span class="pre">768]</span></code></p></li>
+<li><p><strong>show_bounds</strong> (<em>bool</em><em>, </em><em>optional</em>) – Shows mesh bounds when <code class="docutils literal notranslate"><span class="pre">True</span></code>.  Default <code class="docutils literal notranslate"><span class="pre">False</span></code>. Alias
+<code class="docutils literal notranslate"><span class="pre">show_grid</span></code> also accepted.</p></li>
+<li><p><strong>notebook</strong> (<em>bool</em><em>, </em><em>optional</em>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code>, the resulting plot is placed inline a jupyter
+notebook.  Assumes a jupyter console is active.</p></li>
+<li><p><strong>show_axes</strong> (<em>bool</em><em>, </em><em>optional</em>) – Shows a vtk axes widget.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, enabled according to
+<code class="docutils literal notranslate"><span class="pre">pyvista.global_theme.axes.show</span></code>.</p></li>
+<li><p><strong>text</strong> (<em>str</em><em>, </em><em>optional</em>) – Adds text at the bottom of the plot.</p></li>
+<li><p><strong>volume</strong> (<em>bool</em><em>, </em><em>optional</em>) – Use the <code class="docutils literal notranslate"><span class="pre">add_volume</span></code> method for volume rendering.</p></li>
+<li><p><strong>use_ipyvtk</strong> (<em>bool</em><em>, </em><em>optional</em>) – Deprecated.  Instead, set the backend either globally with
+<code class="docutils literal notranslate"><span class="pre">pyvista.set_jupyter_backend('ipyvtklink')</span></code> or with
+<code class="docutils literal notranslate"><span class="pre">backend='ipyvtklink'</span></code>.</p></li>
+<li><p><strong>jupyter_backend</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>Jupyter notebook plotting backend to use.  One of the
+following:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'none'</span></code> : Do not display in the notebook.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'static'</span></code> : Display a static figure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'ipygany'</span></code> : Show a <code class="docutils literal notranslate"><span class="pre">ipygany</span></code> widget</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'panel'</span></code> : Show a <code class="docutils literal notranslate"><span class="pre">panel</span></code> widget.</p></li>
+</ul>
+<p>This can also be set globally with
+<code class="docutils literal notranslate"><span class="pre">pyvista.set_jupyter_backend</span></code></p>
+</p></li>
+<li><p><strong>jupyter_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Keyword arguments for the Jupyter notebook plotting backend.</p></li>
+<li><p><strong>theme</strong> (<em>pyvista.themes.DefaultTheme</em><em>, </em><em>optional</em>) – Plot-specific theme.</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional keyword arguments</em>) – See <code class="docutils literal notranslate"><span class="pre">help(pyvista.Plotter.add_mesh)</span></code> for additional options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul>
+<li><p><strong>cpos</strong> (<em>list</em>) – List of camera position, focal point, and view up.</p></li>
+<li><p><strong>img</strong> (<em>numpy.ndarray</em>) – Array containing pixel RGB and optionally alpha values.
+Sized:</p>
+<ul class="simple">
+<li><p>[Window height x Window width x 3] if the theme sets
+<code class="docutils literal notranslate"><span class="pre">transparent_background=False</span></code>.</p></li>
+<li><p>[Window height x Window width x 4] if the theme sets
+<code class="docutils literal notranslate"><span class="pre">transparent_background=True</span></code>.</p></li>
+</ul>
+<p>Returned only when <code class="docutils literal notranslate"><span class="pre">screenshot=True</span></code>.</p>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Plot a simple sphere while showing its edges.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyvista</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mesh</span> <span class="o">=</span> <span class="n">pyvista</span><span class="o">.</span><span class="n">Sphere</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mesh</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.quality">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">quality</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.quality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimum scaled jacobian cell quality.</p>
+<p>Negative values indicate invalid cells while positive values
+indicate valid cells.  Varies between -1 and 1.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">quality</span>
+<span class="go">array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,</span>
+<span class="go">       1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,</span>
+<span class="go">       1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.rlblock">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">rlblock</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.rlblock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Real constant data from the RLBLOCK.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">rlblock</span>
+<span class="go">[[0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.02 ],</span>
+<span class="go"> [0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.01 ],</span>
+<span class="go"> [0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.005],</span>
+<span class="go"> [0.   , 0.   , 0.   , 0.   , 0.   , 0.   , 0.005]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.rlblock_num">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">rlblock_num</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.rlblock_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indices from the real constant data</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">rnum</span>
+<span class="go">array([60, 61, 62, 63])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_linear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowable_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_unallowed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the geometry as a vtk file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – Filename of output file. Writer type is inferred from
+the extension of the filename.</p></li>
+<li><p><strong>binary</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, write as binary, else ASCII.</p></li>
+<li><p><strong>force_linear</strong> (<em>bool</em><em>, </em><em>optional</em>) – This parser creates quadratic elements if available.  Set
+this to True to always create linear elements.  Defaults
+to False.</p></li>
+<li><p><strong>allowable_types</strong> (<em>list</em><em>, </em><em>optional</em>) – <p>Allowable element types.  Defaults to all valid element
+types in <code class="docutils literal notranslate"><span class="pre">ansys.mapdl.reader.elements.valid_types</span></code></p>
+<p>See <code class="docutils literal notranslate"><span class="pre">help(ansys.mapdl.reader.elements)</span></code> for available element types.</p>
+</p></li>
+<li><p><strong>null_unallowed</strong> (<em>bool</em><em>, </em><em>optional</em>) – Elements types not matching element types will be stored
+as empty (null) elements.  Useful for debug or tracking
+element numbers.  Default False.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">geom</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;mesh.vtk&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>Binary files write much faster than ASCII and have a smaller
+file size.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.mapdl.reader.archive.Archive.section">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">section</span></span><a class="headerlink" href="#ansys.mapdl.reader.archive.Archive.section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Section number</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl</span> <span class="kn">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">pymapdl_reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span> <span class="o">=</span> <span class="n">pymapdl_reader</span><span class="o">.</span><span class="n">Archive</span><span class="p">(</span><span class="n">examples</span><span class="o">.</span><span class="n">hexarchivefile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">archive</span><span class="o">.</span><span class="n">section</span>
+<span class="go">array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,</span>
+<span class="go">       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,</span>
+<span class="go">       1, 1], dtype=int32)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="loading_results.html" title="previous page">Reading MAPDL Result Files</a>
+    <a class='right-next' id="next-link" href="loading_emat.html" title="next page">Working with a ANSYS Element Matrix File (.emat)</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright (c) 2021 ANSYS, Inc. All rights reserved.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

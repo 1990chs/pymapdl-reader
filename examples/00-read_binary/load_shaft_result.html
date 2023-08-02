@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shaft Modal Analysis &#8212; PyMAPDL Legacy Reader 0.51.3 documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Thermal Analysis" href="load_thermal_result.html" />
+    <link rel="prev" title="Cylindrical Nodal Stress" href="load_corner_result.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><style>
+    .navbar-light {
+        background-color: black !important;
+    }
+</style>
+
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../../index.html">
+    
+      <img src="../../_static/pyansys-logo-black-cropped.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" >
+        <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
+      </span>
+    </button>
+    
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../getting_started.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../user_guide/index.html">User Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../api/index.html">API Reference</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../index.html">Examples Gallery</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../contributing.html">Contributing</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/pyansys/PyMAPDL" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square" style="font-size:24px"></i></span>
+            </a>
+          </li>
+        
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="custom_visualization.html">
+   Custom Scalar Visualization
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="load_corner_result.html">
+   Cylindrical Nodal Stress
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Shaft Modal Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="load_thermal_result.html">
+   Thermal Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="pontoon.html">
+   Shell Static Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01-cyclic_results/academic_sector_nd.html">
+   Understanding Nodal Diameters from a Cyclic Model Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01-cyclic_results/academic_sector_stress_strain.html">
+   Stress and Strain from a Cyclic Modal Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01-cyclic_results/sector_model.html">
+   Cyclic Model Visualization
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-examples-00-read-binary-load-shaft-result-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="shaft-modal-analysis">
+<span id="ref-load-shaft-result"></span><span id="sphx-glr-examples-00-read-binary-load-shaft-result-py"></span><h1>Shaft Modal Analysis<a class="headerlink" href="#shaft-modal-analysis" title="Permalink to this headline">¶</a></h1>
+<p>Visualize a shaft modal analysis</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sphinx_gallery_thumbnail_number = 6</span>
+
+<span class="kn">from</span> <span class="nn">ansys.mapdl.reader</span> <span class="kn">import</span> <span class="n">examples</span>
+
+<span class="c1"># Download an example shaft modal analysis result file</span>
+<span class="n">shaft</span> <span class="o">=</span> <span class="n">examples</span><span class="o">.</span><span class="n">download_shaft_modal</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Mesh is stored within the result object</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">shaft</span><span class="o">.</span><span class="n">mesh</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>ANSYS Mesh
+  Number of Nodes:              27132
+  Number of Elements:           25051
+  Number of Element Types:      6
+  Number of Node Components:    4
+  Number of Element Components: 3
+</pre></div>
+</div>
+<p>…and contains a VTK unstructured grid</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">shaft</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">_grid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>None
+</pre></div>
+</div>
+<p>Plot the shaft</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cpos</span> <span class="o">=</span> <span class="n">shaft</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="c1"># list shaft node components</span>
+</pre></div>
+</div>
+<img alt="load shaft result" class="sphx-glr-single-img" src="../../_images/sphx_glr_load_shaft_result_001.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">shaft</span><span class="o">.</span><span class="n">element_components</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;EBC1&#39;, &#39;EBC2&#39;, &#39;SHAFT_MESH&#39;])
+</pre></div>
+</div>
+<p>Plot a node component</p>
+<p>This camera angle was saved interactively from <code class="docutils literal notranslate"><span class="pre">shaft.plot</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cpos</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mf">115.35773008378118</span><span class="p">,</span> <span class="mf">285.36602704380107</span><span class="p">,</span> <span class="o">-</span><span class="mf">393.9029392590675</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">126.12852038381345</span><span class="p">,</span> <span class="mf">0.2179228023931401</span><span class="p">,</span> <span class="mf">5.236408799851887</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">0.37246222812978824</span><span class="p">,</span> <span class="mf">0.8468424028124546</span><span class="p">,</span> <span class="mf">0.37964435122285495</span><span class="p">)]</span>
+<span class="n">shaft</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">element_components</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SHAFT_MESH&#39;</span><span class="p">],</span> <span class="n">cpos</span><span class="o">=</span><span class="n">cpos</span><span class="p">)</span>
+<span class="c1"># get cpos from cpos = shaft.plot()</span>
+</pre></div>
+</div>
+<img alt="load shaft result" class="sphx-glr-single-img" src="../../_images/sphx_glr_load_shaft_result_002.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(-115.35773008378118, 285.36602704380107, -393.9029392590675),
+ (126.12852038381345, 0.2179228023931401, 5.236408799851887),
+ (0.3724622281297882, 0.8468424028124544, 0.37964435122285484)]
+</pre></div>
+</div>
+<p>Plot a node component as a wireframe</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shaft</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">element_components</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SHAFT_MESH&#39;</span><span class="p">],</span> <span class="n">cpos</span><span class="o">=</span><span class="n">cpos</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;wireframe&#39;</span><span class="p">,</span>
+           <span class="n">lighting</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="load shaft result" class="sphx-glr-single-img" src="../../_images/sphx_glr_load_shaft_result_003.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(-115.35773008378118, 285.36602704380107, -393.9029392590675),
+ (126.12852038381345, 0.2179228023931401, 5.236408799851887),
+ (0.3724622281297882, 0.8468424028124544, 0.37964435122285484)]
+</pre></div>
+</div>
+<p>Plot the shaft with edges and with a blue color</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shaft</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="load shaft result" class="sphx-glr-single-img" src="../../_images/sphx_glr_load_shaft_result_004.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(461.5153157248284, 326.5153157248283, 326.5153157248283),
+ (135.00000000000003, 0.0, 0.0),
+ (0.0, 0.0, 1.0)]
+</pre></div>
+</div>
+<p>Plot the shaft without lighting but with edges and with a blue color</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shaft</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lighting</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="load shaft result" class="sphx-glr-single-img" src="../../_images/sphx_glr_load_shaft_result_005.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(461.5153157248284, 326.5153157248283, 326.5153157248283),
+ (135.00000000000003, 0.0, 0.0),
+ (0.0, 0.0, 1.0)]
+</pre></div>
+</div>
+<p>plot a mode shape without contours using the “bwr” color map</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shaft</span><span class="o">.</span><span class="n">plot_nodal_solution</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">element_components</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SHAFT_MESH&#39;</span><span class="p">],</span>
+                          <span class="n">show_displacement</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;bwr&#39;</span><span class="p">,</span>
+                          <span class="n">displacement_factor</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">stitle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">overlay_wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cpos</span><span class="o">=</span><span class="n">cpos</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="load shaft result" class="sphx-glr-single-img" src="../../_images/sphx_glr_load_shaft_result_006.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/pyvista/plotting/plotting.py:1354: PyvistaDeprecationWarning:
+&quot;stitle&quot; is a depreciated keyword and will be removed in a future
+release.
+
+Use ``scalar_bar_args`` instead.  For example:
+
+scalar_bar_args={&#39;title&#39;: &#39;Scalar Bar Title&#39;}
+
+  warnings.warn(USE_SCALAR_BAR_ARGS, PyvistaDeprecationWarning)
+
+[(-115.35773008378118, 285.36602704380107, -393.9029392590675),
+ (126.12852038381345, 0.2179228023931401, 5.236408799851887),
+ (0.3724622281297882, 0.8468424028124544, 0.37964435122285484)]
+</pre></div>
+</div>
+<p>plot a mode shape with contours and the default colormap</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shaft</span><span class="o">.</span><span class="n">plot_nodal_solution</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">element_components</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SHAFT_MESH&#39;</span><span class="p">],</span>
+                          <span class="n">n_colors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">show_displacement</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                          <span class="n">displacement_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stitle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">overlay_wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cpos</span><span class="o">=</span><span class="n">cpos</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="load shaft result" class="sphx-glr-single-img" src="../../_images/sphx_glr_load_shaft_result_007.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/pyvista/plotting/plotting.py:1354: PyvistaDeprecationWarning:
+&quot;stitle&quot; is a depreciated keyword and will be removed in a future
+release.
+
+Use ``scalar_bar_args`` instead.  For example:
+
+scalar_bar_args={&#39;title&#39;: &#39;Scalar Bar Title&#39;}
+
+  warnings.warn(USE_SCALAR_BAR_ARGS, PyvistaDeprecationWarning)
+
+[(-115.35773008378118, 285.36602704380107, -393.9029392590675),
+ (126.12852038381345, 0.2179228023931401, 5.236408799851887),
+ (0.3724622281297882, 0.8468424028124544, 0.37964435122285484)]
+</pre></div>
+</div>
+<p>Animate a mode of a component the shaft</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">loop==True</span></code> to plot continuously.
+Disable <code class="docutils literal notranslate"><span class="pre">movie_filename</span></code> and increase <code class="docutils literal notranslate"><span class="pre">nangles</span></code> for a smoother plot</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shaft</span><span class="o">.</span><span class="n">animate_nodal_solution</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">element_components</span><span class="o">=</span><span class="s1">&#39;SHAFT_MESH&#39;</span><span class="p">,</span>
+                             <span class="n">comp</span><span class="o">=</span><span class="s1">&#39;norm&#39;</span><span class="p">,</span> <span class="n">displacement_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                             <span class="n">show_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cpos</span><span class="o">=</span><span class="n">cpos</span><span class="p">,</span>
+                             <span class="n">loop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">movie_filename</span><span class="o">=</span><span class="s1">&#39;demo.gif&#39;</span><span class="p">,</span>
+                             <span class="n">nangles</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="load shaft result" class="sphx-glr-single-img" src="../../_images/sphx_glr_load_shaft_result_008.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/ansys/mapdl/reader/rst.py:863: UserWarning: The ``nangles`` kwarg is depreciated and ``n_frames`` should be used instead.
+  warnings.warn(&#39;The ``nangles`` kwarg is depreciated and ``n_frames`` &#39;
+
+Rendering animation:   0%|          | 0/30 [00:00&lt;?, ?it/s]
+Rendering animation:   3%|3         | 1/30 [00:00&lt;00:22,  1.31it/s]
+Rendering animation:   7%|6         | 2/30 [00:01&lt;00:20,  1.35it/s]
+Rendering animation:  10%|#         | 3/30 [00:02&lt;00:19,  1.38it/s]
+Rendering animation:  13%|#3        | 4/30 [00:02&lt;00:19,  1.36it/s]
+Rendering animation:  17%|#6        | 5/30 [00:03&lt;00:18,  1.34it/s]
+Rendering animation:  20%|##        | 6/30 [00:04&lt;00:18,  1.30it/s]
+Rendering animation:  23%|##3       | 7/30 [00:05&lt;00:17,  1.28it/s]
+Rendering animation:  27%|##6       | 8/30 [00:06&lt;00:17,  1.29it/s]
+Rendering animation:  30%|###       | 9/30 [00:06&lt;00:16,  1.31it/s]
+Rendering animation:  33%|###3      | 10/30 [00:07&lt;00:15,  1.33it/s]
+Rendering animation:  37%|###6      | 11/30 [00:08&lt;00:14,  1.31it/s]
+Rendering animation:  40%|####      | 12/30 [00:09&lt;00:14,  1.28it/s]
+Rendering animation:  43%|####3     | 13/30 [00:09&lt;00:13,  1.27it/s]
+Rendering animation:  47%|####6     | 14/30 [00:10&lt;00:12,  1.28it/s]
+Rendering animation:  50%|#####     | 15/30 [00:11&lt;00:11,  1.30it/s]
+Rendering animation:  53%|#####3    | 16/30 [00:12&lt;00:10,  1.32it/s]
+Rendering animation:  57%|#####6    | 17/30 [00:12&lt;00:09,  1.31it/s]
+Rendering animation:  60%|######    | 18/30 [00:13&lt;00:09,  1.29it/s]
+Rendering animation:  63%|######3   | 19/30 [00:14&lt;00:08,  1.29it/s]
+Rendering animation:  67%|######6   | 20/30 [00:15&lt;00:07,  1.30it/s]
+Rendering animation:  70%|#######   | 21/30 [00:16&lt;00:06,  1.30it/s]
+Rendering animation:  73%|#######3  | 22/30 [00:16&lt;00:06,  1.31it/s]
+Rendering animation:  77%|#######6  | 23/30 [00:17&lt;00:05,  1.31it/s]
+Rendering animation:  80%|########  | 24/30 [00:18&lt;00:04,  1.33it/s]
+Rendering animation:  83%|########3 | 25/30 [00:19&lt;00:03,  1.32it/s]
+Rendering animation:  87%|########6 | 26/30 [00:19&lt;00:03,  1.31it/s]
+Rendering animation:  90%|######### | 27/30 [00:20&lt;00:02,  1.31it/s]
+Rendering animation:  93%|#########3| 28/30 [00:21&lt;00:01,  1.29it/s]
+Rendering animation:  97%|#########6| 29/30 [00:22&lt;00:00,  1.30it/s]
+Rendering animation: 100%|##########| 30/30 [00:22&lt;00:00,  1.30it/s]
+Rendering animation: 100%|##########| 30/30 [00:23&lt;00:00,  1.27it/s]
+
+[(-115.35773008378118, 285.36602704380107, -393.9029392590675),
+ (126.12852038381345, 0.2179228023931401, 5.236408799851887),
+ (0.3724622281297882, 0.8468424028124544, 0.37964435122285484)]
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  30.508 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-examples-00-read-binary-load-shaft-result-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/5c5a3ddf3cb61c92538d68f0b7ba624e/load_shaft_result.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">load_shaft_result.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/8cd211bc3350aad3ddda1ae4186d4e53/load_shaft_result.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">load_shaft_result.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="load_corner_result.html" title="previous page">Cylindrical Nodal Stress</a>
+    <a class='right-next' id="next-link" href="load_thermal_result.html" title="next page">Thermal Analysis</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright (c) 2021 ANSYS, Inc. All rights reserved.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
